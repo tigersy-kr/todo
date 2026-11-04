@@ -22,6 +22,8 @@
     @media(max-width:1050px){.app{display:block}.sidebar{height:auto;position:static;border:0;padding:28px 32px 0;display:block}.brand{padding-left:0;font-size:24px}.brand-mark{transform:scale(.85) rotate(-9deg)}.tagline{margin:8px 0 25px 39px;font-size:10px}.nav-label,.sidebar-bottom{display:none}.nav{display:flex;gap:9px}.nav-button{border:1px solid #3b4032;padding:10px 16px;gap:8px;font-size:12px}.nav-button.active{border-color:#f4efcd}.nav-button span:nth-child(2){flex:initial}.columns{grid-template-columns:minmax(0,1fr)}.aside{display:none}.workspace{padding:28px 32px 36px;max-width:850px}.topbar{margin-bottom:30px}.intro h1{font-size:46px}.task-card{min-height:190px;padding:25px}.task-actions{right:18px}}
     @media(max-width:650px){.sidebar{padding:27px 20px 0}.brand{font-size:25px}.tagline{margin-bottom:25px}.nav{gap:7px}.nav-button{flex:1;justify-content:center;padding:10px 8px;gap:5px;font-size:11px;white-space:nowrap;min-width:0}.nav-button svg{display:none}.count{font-size:9px;min-width:18px;width:18px;height:18px}.workspace{padding:24px 20px 30px}.topbar{gap:10px;margin-bottom:29px}.today-label{font-size:10px;gap:5px;line-height:1.5;min-width:0}.today-label svg{width:13px;height:13px}.top-right{gap:0;min-width:0}.avatar{display:none}.search{width:145px;padding:10px 12px;gap:7px}.search svg{width:14px;height:14px}.intro{margin-bottom:28px}.eyebrow{font-size:9px;letter-spacing:2px;margin-bottom:13px}.intro h1{font-size:42px;letter-spacing:-2.5px;margin-bottom:15px}.intro p:last-child{font-size:12px;max-width:270px}.composer{padding:28px 18px 18px;border-radius:27px}.task-input{font-size:17px}.input-top{gap:10px}.composer-foot{gap:7px}.submit{padding:11px 13px;font-size:11px}.detail-toggle{font-size:11px;gap:5px}.task-list{gap:11px}.task-card{min-height:180px;padding:24px 15px 20px;border-radius:25px;gap:17px 9px}.task-name{font-size:17px;line-height:1.5}.task-description{font-size:11px}.task-actions{right:10px;top:20px;gap:0}.icon-button{width:28px;height:30px}.icon-button svg{width:14px;height:14px}.check{width:23px;height:23px}.badge{font-size:9px;padding:5px 7px}.task-meta{gap:5px;margin-top:14px}.list-toolbar{margin-top:29px;margin-bottom:16px}.list-title h2{font-size:18px}.sort{font-size:10px}.date-fields{gap:10px}.schedule-button{font-size:12px;padding:11px 10px}.empty{padding:38px 19px;border-radius:27px}.empty h3{font-size:19px}.empty p{font-size:12px}.footer{font-size:9px;line-height:1.6}.picker{padding:23px}.calendar-nav{gap:5px}}
     @media(max-width:360px){.sidebar{padding-left:16px;padding-right:16px}.workspace{padding-left:16px;padding-right:16px}.nav{gap:5px}.nav-button{padding:10px 5px;font-size:10px;gap:4px}.search{width:136px}.task-list{grid-template-columns:minmax(0,1fr)}.task-card{min-height:165px;padding:24px 21px}.task-actions{right:17px}.intro h1{font-size:39px}.composer-foot{flex-wrap:wrap}}
+    .favorite-button{color:#40472c}.favorite-button[aria-pressed=true]{background:#20271a;color:#f5dc56}.favorite-button[aria-pressed=true] svg{fill:currentColor;stroke:currentColor}.favorite-button[aria-pressed=true]:hover{background:#394529;color:#ffe674}.badge.favorite{background:#20271a;color:#f5dc56}.badge.favorite svg{fill:currentColor}
+    @media(max-width:650px){.nav{overflow-x:auto;scrollbar-width:thin;scrollbar-color:#67734b transparent;padding-bottom:8px;overscroll-behavior-x:contain}.nav-button{flex:0 0 auto;min-width:64px}.task-actions{gap:1px}}
     /* Preserve iPhone Safari focus behavior and user-controlled pinch zoom. */
     @media(max-width:1050px),(pointer:coarse){.task-input,.search input,.details textarea,.details input,.calendar-nav select{font-size:16px}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
@@ -44,6 +46,7 @@
     <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
     <symbol id="i-edit" viewBox="0 0 24 24"><path d="m14 5 5 5M4 20l5-1L20 8a2.8 2.8 0 0 0-4-4L5 15Z"/></symbol>
     <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 6h16M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7m4-7v7"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9Z"/></symbol>
     <symbol id="i-sort" viewBox="0 0 24 24"><path d="M8 4v16m-4-4 4 4 4-4M14 5h7m-7 5h5m-5 5h3"/></symbol>
   </defs></svg>
   <div class="app">
@@ -53,6 +56,7 @@
       <p class="nav-label">MY SPACE</p>
       <nav class="nav" aria-label="할 일 필터">
         <button class="nav-button active" data-view="all" aria-current="page"><svg><use href="#i-grid"/></svg><span>모든 할 일</span><span class="count" id="count-all">0</span></button>
+        <button class="nav-button" data-view="favorites"><svg><use href="#i-star"/></svg><span>즐겨찾기</span><span class="count" id="count-favorites">0</span></button>
         <button class="nav-button" data-view="today"><svg><use href="#i-sun"/></svg><span>오늘</span><span class="count" id="count-today">0</span></button>
         <button class="nav-button" data-view="upcoming"><svg><use href="#i-calendar"/></svg><span>예정</span><span class="count" id="count-upcoming">0</span></button>
         <button class="nav-button" data-view="completed"><svg><use href="#i-circle-check"/></svg><span>완료</span><span class="count" id="count-completed">0</span></button>
@@ -206,8 +210,14 @@
         }
         if (task.time) meta.append(badge(task.time,'clock'));
         if (task.done) meta.append(badge('완료','check','done'));
+        if (task.favorite === true) meta.append(badge('즐겨찾기','star','favorite'));
         if (meta.childNodes.length) body.append(meta);
         const actions = element('div','task-actions');
+        const favorite = element('button','icon-button favorite-button'); favorite.type='button';
+        favorite.title=task.favorite ? '즐겨찾기 해제' : '즐겨찾기 추가';
+        favorite.setAttribute('aria-label',`${task.title} ${favorite.title}`);
+        favorite.setAttribute('aria-pressed',String(task.favorite === true)); favorite.append(icon('star'));
+        favorite.addEventListener('click',()=>{task.favorite=!task.favorite;persist(task.favorite?'즐겨찾기에 담았어요.':'즐겨찾기를 해제했어요.');});
         const edit = element('button','icon-button'); edit.type='button'; edit.title='수정'; edit.setAttribute('aria-label',`${task.title} 수정`); edit.append(icon('edit')); edit.addEventListener('click',()=>startEdit(task));
         const del = element('button','icon-button delete'); del.type='button'; del.title='삭제'; del.setAttribute('aria-label',`${task.title} 삭제`); del.append(icon('trash'));
         del.addEventListener('click',()=> {
@@ -215,13 +225,13 @@
           if (editingId === task.id) resetForm();
           persist('할 일을 삭제했어요.', () => { tasks.splice(Math.min(index,tasks.length),0,task); persist('삭제한 할 일을 복원했어요.'); });
         });
-        actions.append(edit,del); card.append(check,body,actions); return card;
+        actions.append(favorite,edit,del); card.append(check,body,actions); return card;
       }
       function render() {
         const pending = tasks.filter(t => !t.done), completed = tasks.filter(t => t.done);
-        const groups = { all: pending, today: pending.filter(t=>t.date===today), upcoming: pending.filter(t=>t.date>today), completed };
+        const groups = { all: pending, favorites: tasks.filter(t=>t.favorite===true), today: pending.filter(t=>t.date===today), upcoming: pending.filter(t=>t.date>today), completed };
         Object.entries(groups).forEach(([key,items]) => { $(`count-${key}`).textContent = items.length; });
-        const titles = {all:'모든 할 일',today:'오늘의 할 일',upcoming:'예정된 할 일',completed:'완료한 할 일'};
+        const titles = {all:'모든 할 일',favorites:'즐겨찾기',today:'오늘의 할 일',upcoming:'예정된 할 일',completed:'완료한 할 일'};
         $('list-heading').textContent = titles[view];
         $('sort-label').textContent = view === 'completed' ? '최근 완료순' : '일정순';
         document.querySelectorAll('[data-view]').forEach(button=> {
@@ -237,6 +247,7 @@
           all: tasks.length ? ['지금은 모두 끝냈어요!','차곡 쌓인 성취를 완료 목록에서 확인해 보세요.'] : ['가벼운 시작, 작은 할 일 하나','위에 첫 할 일을 적어보세요.\n하나씩 채워갈 하루가 기다리고 있어요.'],
           today:['오늘은 여유롭게 시작해요','할 일에 오늘 날짜를 지정하면 여기에 모여요.'],
           upcoming:['다가올 날을 위한 빈 공간','내일 이후로 지정한 할 일이 여기에 모여요.'],
+          favorites:['중요한 할 일을 가까이에','카드의 별표를 눌러 즐겨찾기에 담아보세요.\n완료한 항목도 여기서 다시 볼 수 있어요.'],
           completed:['첫 번째 성취를 기다리고 있어요','할 일 옆의 체크박스를 눌러 완료해 보세요.']
         }[view];
         $('empty-heading').textContent = emptyCopy[0]; $('empty-message').textContent = emptyCopy[1]; $('empty-message').style.whiteSpace = 'pre-line';
@@ -265,8 +276,8 @@
         const editing = editingId !== null;
         if(editing) { const task=tasks.find(t=>t.id===editingId); if(task) Object.assign(task,values); }
         else {
-          tasks.push({id:globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`,...values,done:false,createdAt:Date.now(),completedAt:null});
-          if(view==='completed' || (view==='today' && values.date!==today) || (view==='upcoming' && values.date<=today)) view='all';
+          tasks.push({id:globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`,...values,done:false,favorite:false,createdAt:Date.now(),completedAt:null});
+          if(view==='completed' || view==='favorites' || (view==='today' && values.date!==today) || (view==='upcoming' && values.date<=today)) view='all';
           query=''; $('search').value='';
         }
         resetForm(); persist(editing?'할 일을 수정했어요.':'새로운 할 일을 차곡 담았어요.');
