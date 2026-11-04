@@ -14,6 +14,7 @@
     @media(max-width:950px){.columns{grid-template-columns:1fr}.aside{display:none}.workspace{max-width:740px}.intro h1{font-size:30px}.topbar{margin-bottom:35px}.search{width:180px}}
     @media(max-width:650px){.app{display:block}.sidebar{height:auto;position:static;border-right:0;padding:24px 20px 0}.brand{padding:0;font-size:24px}.brand-mark{transform:scale(.85) rotate(-8deg)}.tagline{margin:6px 0 22px 42px;font-size:10px}.nav-label,.sidebar-bottom{display:none}.nav{display:flex;gap:5px;border-bottom:1px solid var(--line);padding-bottom:15px}.nav-button{flex:1;justify-content:center;gap:5px;padding:10px 5px;font-size:11px;white-space:nowrap}.nav-button svg{width:15px;height:15px}.nav-button span:nth-child(2){flex:initial}.count{font-size:9px;min-width:17px;padding:2px 4px}.workspace{padding:22px 20px 30px}.topbar{margin-bottom:28px;align-items:flex-start}.top-right{gap:0}.avatar{display:none}.today-label{font-size:10px;padding-top:9px;gap:5px}.today-label svg{width:13px}.search{width:145px;padding:8px 9px}.search input{font-size:11px}.intro{margin-bottom:24px}.intro h1{font-size:28px;margin-bottom:11px}.intro p:last-child{font-size:12px}.eyebrow{font-size:9px;margin-bottom:12px}.composer{padding:20px 17px 15px;border-radius:16px}.task-input{font-size:14px}.task-card{padding:17px 13px;gap:11px}.task-actions{flex-direction:column;margin-top:-3px}.task-name{font-size:13px}.task-description{font-size:11px}.list-toolbar{margin-top:26px}.list-title h2{font-size:15px}.footer{margin-top:30px;font-size:9px}.empty{padding:42px 16px}.date-fields{gap:10px}.details input{padding:10px 7px;font-size:12px;min-width:0}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+    .schedule-button{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;min-height:43px;border:1px solid #e7e9e1;border-radius:9px;padding:11px 12px;background:#fbfcf9;color:#525b4b;text-align:left;font-size:13px}.schedule-button:hover{border-color:#bbc6af;background:#f4f7ef}.schedule-button svg{width:16px;height:16px;color:#89937d}.schedule-button .placeholder{color:#959d8c}.picker{width:min(360px,calc(100% - 32px));border:1px solid var(--line);border-radius:20px;padding:24px;color:var(--ink);background:var(--paper);box-shadow:0 20px 80px #25301f26;max-height:calc(100dvh - 32px);overflow:auto}.picker::backdrop{background:#232d2245;backdrop-filter:blur(3px)}.picker-heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}.picker-heading h2{font-size:18px;margin:0}.picker-close{width:30px;height:30px;border-radius:8px;font-size:23px;color:var(--muted)}.picker-close:hover{background:var(--bg)}.calendar-nav{display:flex;gap:8px;align-items:center;margin-bottom:18px}.calendar-nav select,.time-selects select{border:1px solid var(--line);border-radius:9px;background:#f8faf5;color:var(--ink);padding:10px 8px;font:inherit;min-width:0}.calendar-nav select{flex:1}.month-arrow{width:32px;height:36px;flex-shrink:0;border-radius:8px;font-size:22px}.month-arrow:hover{background:var(--green-soft)}.calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}.week-label{text-align:center;font-size:11px;color:var(--muted);padding:6px 0 11px}.calendar-day{height:36px;border-radius:9px;font-size:13px;font-variant-numeric:tabular-nums}.calendar-day:hover{background:var(--accent-soft)}.calendar-day.is-today{box-shadow:inset 0 0 0 1px #bbcab0;color:var(--green);font-weight:700}.calendar-day[aria-pressed=true]{background:var(--accent);color:white;box-shadow:none}.picker-footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding-top:16px;margin-top:20px;gap:12px}.picker-secondary{font-size:12px;color:var(--muted);padding:9px 4px}.picker-today{color:var(--green);font-size:12px;font-weight:600;padding:9px 4px}.time-selects{display:grid;grid-template-columns:1fr 1fr;gap:16px}.time-selects select{width:100%;font-size:20px;padding:14px 12px}.picker-help{font-size:12px;color:var(--muted);line-height:1.7;margin:0 0 20px}
   </style>
 </head>
 <body>
@@ -56,7 +57,7 @@
           <div class="input-top"><span class="input-icon" aria-hidden="true"><svg><use href="#i-plus"/></svg></span><label class="sr-only" for="task-title">할 일 내용 (필수)</label><input class="task-input" id="task-title" placeholder="어떤 일을 해볼까요?" required maxlength="200" autocomplete="off"></div>
           <div class="details" id="task-details" hidden>
             <label class="field-label" for="task-description">상세설명 <span class="optional">· 선택</span></label><textarea id="task-description" placeholder="잊지 말아야 할 내용을 남겨보세요." maxlength="4000"></textarea>
-            <div class="date-fields"><div><label class="field-label" for="task-date">날짜 <span class="optional">· 선택</span></label><input type="date" id="task-date" min="0001-01-01" max="9999-12-31"></div><div><label class="field-label" for="task-time">시간 <span class="optional">· 선택</span></label><input type="time" id="task-time"></div></div>
+            <div class="date-fields"><div><span class="field-label" id="date-field-label">날짜 <span class="optional">· 선택</span></span><input type="hidden" id="task-date"><button type="button" class="schedule-button" id="date-picker-trigger" aria-label="날짜 선택" aria-haspopup="dialog"><span id="date-display" class="placeholder">날짜 선택</span><svg><use href="#i-calendar"/></svg></button></div><div><span class="field-label" id="time-field-label">시간 <span class="optional">· 선택</span></span><input type="hidden" id="task-time"><button type="button" class="schedule-button" id="time-picker-trigger" aria-label="시간 선택" aria-haspopup="dialog"><span id="time-display" class="placeholder">시간 선택</span><svg><use href="#i-clock"/></svg></button></div></div>
           </div>
           <div class="composer-foot"><button type="button" class="detail-toggle" id="detail-toggle" aria-expanded="false" aria-controls="task-details"><svg><use href="#i-note"/></svg>세부 정보 추가<svg class="chevron"><use href="#i-chevron"/></svg></button><div style="display:flex;align-items:center;gap:8px"><button type="button" id="cancel-edit" class="cancel-edit" hidden>취소</button><button class="submit" type="submit"><span id="submit-label">할 일 추가</span><svg><use href="#i-arrow"/></svg></button></div></div>
         </form>
@@ -67,6 +68,17 @@
       </div><aside class="aside" aria-label="완료 현황"><div class="summary-card"><p class="section-kicker">YOUR LITTLE WINS</p><h2>차곡차곡 쌓이는 성취</h2><div class="progress-visual" role="progressbar" aria-label="전체 할 일 완료율" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="progress-track" cx="60" cy="60" r="54"/><circle class="progress-fill" id="progress-fill" cx="60" cy="60" r="54"/></svg><div class="progress-number"><span id="progress-number">0</span><small>%</small></div></div><p class="progress-caption" id="progress-caption">작은 시작이 멋진 하루를 만들어요</p><div class="stats"><div class="stat"><strong id="stat-pending">0</strong><span>남은 할 일</span></div><div class="stat"><strong id="stat-done">0</strong><span>완료한 일</span></div></div></div><div class="quote-card"><div class="quote-icon" aria-hidden="true">“</div><p>완벽한 하루보다,<br>하나를 해낸 하루면 충분해요.</p><span>A NOTE TO MYSELF</span></div></aside></div>
     </main>
   </div>
+  <dialog class="picker" id="date-picker" aria-labelledby="date-picker-heading">
+    <div class="picker-heading"><h2 id="date-picker-heading">날짜 선택</h2><button type="button" class="picker-close" data-close="date-picker" aria-label="날짜 선택 닫기">×</button></div>
+    <div class="calendar-nav"><button type="button" class="month-arrow" id="prev-month" aria-label="이전 달">‹</button><select id="calendar-year" aria-label="연도"></select><select id="calendar-month" aria-label="월"></select><button type="button" class="month-arrow" id="next-month" aria-label="다음 달">›</button></div>
+    <div class="calendar-grid" aria-hidden="true"><span class="week-label">일</span><span class="week-label">월</span><span class="week-label">화</span><span class="week-label">수</span><span class="week-label">목</span><span class="week-label">금</span><span class="week-label">토</span></div><div class="calendar-grid" id="calendar-days" role="group" aria-label="날짜"></div>
+    <div class="picker-footer"><button type="button" class="picker-secondary" id="clear-date">날짜 지우기</button><button type="button" class="picker-today" id="choose-today">오늘로 선택</button></div>
+  </dialog>
+  <dialog class="picker" id="time-picker" aria-labelledby="time-picker-heading">
+    <div class="picker-heading"><h2 id="time-picker-heading">시간 선택</h2><button type="button" class="picker-close" data-close="time-picker" aria-label="시간 선택 닫기">×</button></div><p class="picker-help">24시간 기준으로 시와 분을 선택해 주세요.</p>
+    <div class="time-selects"><div><label class="field-label" for="choose-hour">시</label><select id="choose-hour"></select></div><div><label class="field-label" for="choose-minute">분</label><select id="choose-minute"></select></div></div>
+    <div class="picker-footer"><button type="button" class="picker-secondary" id="clear-time">시간 지우기</button><button type="button" class="submit" id="apply-time">선택 완료</button></div>
+  </dialog>
   <div class="toast" id="toast" role="status"><span id="toast-message"></span><button type="button" id="undo" hidden>실행 취소</button></div>
   <script>
     (() => {
@@ -76,6 +88,59 @@
       let tasks = [], view = 'all', query = '', editingId = null, undoAction = null, toastTimer;
       const localDate = (date = new Date()) => `${String(date.getFullYear()).padStart(4,'0')}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
       let today = localDate();
+      let calendarYear, calendarMonth;
+      function syncSchedule() {
+        const date=$('task-date').value, time=$('task-time').value;
+        $('date-display').textContent=date ? formatDate(date) : '날짜 선택';
+        $('time-display').textContent=time || '시간 선택';
+        $('date-display').classList.toggle('placeholder',!date);
+        $('time-display').classList.toggle('placeholder',!time);
+        $('date-picker-trigger').setAttribute('aria-label',date ? `날짜 변경, ${date}` : '날짜 선택');
+        $('time-picker-trigger').setAttribute('aria-label',time ? `시간 변경, ${time}` : '시간 선택');
+      }
+      function selectDate(value) { $('task-date').value=value; syncSchedule(); $('date-picker').close(); }
+      function renderCalendar() {
+        const yearSelect=$('calendar-year'); yearSelect.replaceChildren();
+        for(let year=Math.min(1900,calendarYear);year<=Math.max(2100,calendarYear);year++) {
+          const option=element('option','',`${year}년`); option.value=year; yearSelect.append(option);
+        }
+        yearSelect.value=calendarYear; $('calendar-month').value=calendarMonth;
+        const first=new Date(0); first.setFullYear(calendarYear,calendarMonth,1); first.setHours(12,0,0,0);
+        const last=new Date(first); last.setMonth(calendarMonth+1,0);
+        const days=$('calendar-days'); days.replaceChildren();
+        for(let i=0;i<first.getDay();i++) { const blank=element('span'); blank.setAttribute('aria-hidden','true'); days.append(blank); }
+        for(let day=1;day<=last.getDate();day++) {
+          const value=`${String(calendarYear).padStart(4,'0')}-${String(calendarMonth+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+          const button=element('button',`calendar-day${value===localDate()?' is-today':''}`,String(day)); button.type='button';
+          button.setAttribute('aria-label',`${calendarYear}년 ${calendarMonth+1}월 ${day}일`);
+          button.setAttribute('aria-pressed',String(value===$('task-date').value));
+          button.addEventListener('click',()=>selectDate(value)); days.append(button);
+        }
+        $('prev-month').disabled=calendarYear===1&&calendarMonth===0;
+        $('next-month').disabled=calendarYear===9999&&calendarMonth===11;
+      }
+      for(let month=0;month<12;month++) { const option=element('option','',`${month+1}월`); option.value=month; $('calendar-month').append(option); }
+      for(const [id,total,suffix] of [['choose-hour',24,'시'],['choose-minute',60,'분']]) {
+        for(let n=0;n<total;n++) { const value=String(n).padStart(2,'0'); const option=element('option','',`${value}${suffix}`); option.value=value; $(id).append(option); }
+      }
+      $('date-picker-trigger').addEventListener('click',()=> {
+        const [year,month]=($('task-date').value||localDate()).split('-').map(Number);
+        calendarYear=year; calendarMonth=month-1; renderCalendar(); $('date-picker').showModal();
+      });
+      $('calendar-year').addEventListener('change',event=>{calendarYear=Number(event.target.value);renderCalendar();});
+      $('calendar-month').addEventListener('change',event=>{calendarMonth=Number(event.target.value);renderCalendar();});
+      for(const [id,step] of [['prev-month',-1],['next-month',1]]) $(id).addEventListener('click',()=> {
+        calendarMonth+=step; if(calendarMonth<0){calendarMonth=11;calendarYear--;} if(calendarMonth>11){calendarMonth=0;calendarYear++;} renderCalendar();
+      });
+      $('choose-today').addEventListener('click',()=>selectDate(localDate()));
+      $('clear-date').addEventListener('click',()=>selectDate(''));
+      $('time-picker-trigger').addEventListener('click',()=> {
+        const [hour,minute]=($('task-time').value||'09:00').split(':');
+        $('choose-hour').value=hour; $('choose-minute').value=minute; $('time-picker').showModal();
+      });
+      $('apply-time').addEventListener('click',()=>{ $('task-time').value=`${$('choose-hour').value}:${$('choose-minute').value}`;syncSchedule();$('time-picker').close(); });
+      $('clear-time').addEventListener('click',()=>{ $('task-time').value='';syncSchedule();$('time-picker').close(); });
+      document.querySelectorAll('[data-close]').forEach(button=>button.addEventListener('click',()=>$(button.dataset.close).close()));
       let storageFailed = false;
       function validTask(t) {
         return t && typeof t.id === 'string' && typeof t.title === 'string' && t.title.trim() && typeof t.description === 'string' && typeof t.done === 'boolean' && typeof t.date === 'string' && (!t.date || /^\d{4}-\d{2}-\d{2}$/.test(t.date)) && typeof t.time === 'string' && (!t.time || /^([01]\d|2[0-3]):[0-5]\d$/.test(t.time)) && Number.isFinite(t.createdAt) && (t.completedAt === null || Number.isFinite(t.completedAt));
@@ -172,10 +237,10 @@
         $('progress-caption').textContent = tasks.length ? (percent===100 ? '모두 해냈어요. 충분히 잘한 하루예요!' : `${tasks.length}개의 할 일 중 ${completed.length}개를 해냈어요`) : '작은 시작이 멋진 하루를 만들어요';
       }
       function setDetails(open) { $('task-details').hidden = !open; $('detail-toggle').setAttribute('aria-expanded',String(open)); }
-      function resetForm() { editingId=null; $('task-form').reset(); $('task-title').setCustomValidity(''); $('submit-label').textContent='할 일 추가'; $('cancel-edit').hidden=true; setDetails(false); }
+      function resetForm() { editingId=null; $('task-form').reset(); $('task-date').value=''; $('task-time').value=''; syncSchedule(); $('task-title').setCustomValidity(''); $('submit-label').textContent='할 일 추가'; $('cancel-edit').hidden=true; setDetails(false); }
       function startEdit(task) {
         editingId=task.id; $('task-title').value=task.title; $('task-description').value=task.description;
-        $('task-date').value=task.date; $('task-time').value=task.time;
+        $('task-date').value=task.date; $('task-time').value=task.time; syncSchedule();
         $('submit-label').textContent='수정 저장'; $('cancel-edit').hidden=false;
         setDetails(true); $('task-title').setCustomValidity(''); $('task-title').focus();
         $('task-form').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'center'});
